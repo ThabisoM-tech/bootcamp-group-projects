@@ -26,3 +26,7 @@ def generate_actions(state):
 
 def apply_action(state, action, next_card=None):
     raise NotImplementedError("This function is not implemented yet.")
+
+    """
+        KARABO
+    """
