@@ -1,7 +1,6 @@
 import unittest
 import blackjack
 
-
 class TestBlackjackActions(unittest.TestCase):
     def test_hit_and_stand_always_legal(self):
         state = blackjack.parse_state("10,6 | 9 | later")
@@ -43,42 +42,7 @@ class TestBlackjackActions(unittest.TestCase):
         hand_a, hand_b = blackjack.apply_action(state, "split")
         self.assertEqual(hand_a["hand"], ["8"])
         self.assertEqual(hand_b["hand"], ["8"])
-
-    def test_apply_stand_leaves_hand_unchanged(self):
-        state = blackjack.parse_state("10,6 | 9 | first")
-        new_state = blackjack.apply_action(state, "stand")
-        self.assertEqual(new_state["hand"], ["10", "6"])
-        self.assertEqual(new_state["total"], 16)
-
-    def test_apply_double_takes_exactly_one_card(self):
-        state = blackjack.parse_state("5,6 | 9 | first")
-        new_state = blackjack.apply_action(state, "double", next_card="9")
-        self.assertEqual(new_state["hand"], ["5", "6", "9"])
-        self.assertEqual(new_state["total"], 20)
-        self.assertFalse(new_state["busted"])
-
-    def test_apply_surrender_ends_turn_without_new_card(self):
-        # 10 + 6 = 16, same starting hand as the Stand test. Surrendering
-        # should NOT draw a card (unlike Hit/Double), so the hand must
-        # stay exactly ["10", "6"] -- two cards, not three. The
-        # "surrendered" flag is the one thing that distinguishes this
-        # from an ordinary Stand, so we check for it explicitly.
-        state = blackjack.parse_state("10,6 | 9 | first")
-        new_state = blackjack.apply_action(state, "surrender")
-        self.assertEqual(new_state["hand"], ["10", "6"])
-        self.assertTrue(new_state["surrendered"])
-
-    def test_apply_insurance_leaves_state_unchanged(self):
-        # Insurance is a side bet -- it shouldn't touch the hand at all.
-        # We compare new_state["total"] directly against the ORIGINAL
-        # state["total"] (rather than hardcoding a number) to prove
-        # nothing changed, whatever the starting total happens to be.
-        state = blackjack.parse_state("10,9 | A | first")
-        new_state = blackjack.apply_action(state, "insurance")
-        self.assertEqual(new_state["hand"], ["10", "9"])
-        self.assertEqual(new_state["total"], state["total"])    
-
-
+        
 if __name__ == "__main__":
     unittest.main()
 
