@@ -1,24 +1,24 @@
 # RANK_VALUES: how much each card is worth.
 # J/Q/K all count as 10, and Ace is stored as 11 here (hand_value below
 # knocks it down to 1 whenever counting it as 11 would bust the hand).
-RANK_VALUES = {
-    "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10,
-    "J": 10, "Q": 10, "K": 10, "A": 11,
-}
+#RANK_VALUES = {
+ #   "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10,
+  #  "J": 10, "Q": 10, "K": 10, "A": 11,
+#}
 
 
-def hand_value(cards):  
+#def hand_value(cards):  
     # Add up every card assuming each Ace is worth 11 .
-    total = sum(RANK_VALUES[card] for card in cards)
-    aces = cards.count("A")
+    #total = sum(RANK_VALUES[card] for card in cards)
+    #aces = cards.count("A")
     # If that puts us over 21, re-count Aces as 1 instead of 11, one at a
     # time, until we're back at or under 21 (or we've run out of Aces to
     # downgrade). Each downgrade removes exactly 10 from the total
     # (11 - 1 = 10).
-    while total > 21 and aces > 0:
-        total -= 10
-        aces -= 1
-    return total
+    #while total > 21 and aces > 0:
+     #   total -= 10
+    #  aces -= 1
+    #return total
 
 
 def parse_state(text):
